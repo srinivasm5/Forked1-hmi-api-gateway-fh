@@ -9,7 +9,6 @@ parameters:
     default: 'sbox'
     values:
       - sbox
-      - test
 
 variables:
   - group: HMI-APIM-Common
@@ -20,14 +19,12 @@ variables:
 
 resources:
   containers:
-  - container: owasp_zap_container
-    image: hmi/apim-tests-owasp:latest
+  - container: wiremock_container
+    image: hmi/apim-tests-wiremock:latest
     endpoint: 'DTS-SS-ACRPrivate'
     options: --user 0:0
     ports:
-    - 80:80
-    volumes:
-    - /home/vsts/work/1:/zap/wrk:rw
+    - 8080:8080
 
 stages:
 
@@ -42,20 +39,18 @@ stages:
         - template: pipeline/steps/push-img.yaml
           parameters:
             registry: 'DTS-SS-ACRPrivate'
-            repository: 'hmi/apim-tests-owasp'
-            dockerfile: 'pipeline/tests/owasp/Dockerfile'
+            repository: 'hmi/apim-tests-wiremock'
+            dockerfile: 'pipeline/tests/wiremock/Dockerfile'
             tags: |
               latest
 
-  - stage: OWASP
-    displayName: Tests - OWASP
+  - stage: WIREMOCK
+    displayName: Tests - Wiremock
     jobs:
       - job: containerjob
         pool:
-          vmImage: 'ubuntu-latest'
-        container: owasp_zap_container
+          vmImage: 'ubuntu-16.04'
+        services: 
+          wiremock: wiremock_container
         steps:
-        - script: |
-            echo "Initiating Scan"
-            zap-api-scan.py -t https://www.example.com/openapi.json -f openapi
-            echo "Finished Scan"
+        - script: curl http://localhost:8080/product/p0001
