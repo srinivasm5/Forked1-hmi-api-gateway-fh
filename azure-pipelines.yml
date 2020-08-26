@@ -51,14 +51,14 @@ variables:
 
 stages:
 
-- ${{ each environment in parameters.environments }}:
+# - ${{ each environment in parameters.environments }}:
 
-  - stage: ${{ environment.name }}
-    ${{ if environment.condition }}:
-      condition: ${{ environment.condition }}
-    displayName: Build and Test ${{ environment.name }} APIM
+#   - stage: ${{ environment.name }}
+#     ${{ if environment.condition }}:
+#       condition: ${{ environment.condition }}
+#     displayName: Build and Test ${{ environment.name }} APIM
     
-    jobs:
+#     jobs:
 
     # - template: pipeline/jobs/terraform.yaml
     #   parameters:
