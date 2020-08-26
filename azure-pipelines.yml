@@ -137,10 +137,10 @@ stages:
         - task: Docker@1
           displayName: 'Run an image'
           inputs:
-            azureSubscriptionEndpoint: 'DTS-SHAREDSERVICES-SBOX'
-            azureContainerRegistry: ssprivatesbox.azurecr.io
+            containerregistrytype: 'Container Registry'
+            dockerRegistryEndpoint: DTS-SS-PRIVATE-SBOX
             command: 'Run an image'
-            imageName: 'ssprivatesbox.azurecr.io/hmi/apim-tests-owasp:v0.1'
+            imageName: 'ssprivatesbox.azurecr.io/hmi/apim-tests-owasp:latest'
             volumes: '/home/vsts/work/:/zap/wrk/:rw'
             envVars: |         
               TEST_URL=https://www.example.com/openapi.json
