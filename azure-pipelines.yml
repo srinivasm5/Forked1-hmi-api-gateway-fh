@@ -30,18 +30,7 @@ parameters:
         logLevel: info
         serenity: true
         dependsOn: AcceptanceTest
-      steps:
-      - task: SonarCloudPrepare@1
-        inputs:
-          SonarCloud: 'SonarCloud'
-          organization: 'hmcts'
-          scannerMode: 'MSBuild'
-          projectKey: 'HMIAPI'
-          projectName: 'HMI :: Hearing Management Interface API'
-      - task: SonarCloudAnalyze@1
-      - task: SonarCloudPublish@1
-        inputs:
-          pollingTimeoutSec: '300'
+      
           
       tests_security:
       - name: ApiZapScan
@@ -148,7 +137,18 @@ stages:
               resourceGroup: $[dependencies.Terraform.outputs['terraformOutput.resourceGroup']]
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
-
+          - steps:
+           - task: SonarCloudPrepare@1
+             inputs:
+              SonarCloud: 'SonarCloud'
+              organization: 'hmcts'
+              scannerMode: 'MSBuild'
+              projectKey: 'HMIAPI'
+              projectName: 'HMI :: Hearing Management Interface API'
+          - task: SonarCloudAnalyze@1
+          - task: SonarCloudPublish@1
+            inputs:
+             pollingTimeoutSec: '300'
     - ${{ if environment.tests_security }}:
       - ${{ each test in environment.tests_security }}:
         - template: pipeline/jobs/security-test.yaml
