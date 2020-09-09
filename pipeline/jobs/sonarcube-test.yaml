@@ -1,10 +1,5 @@
-parameters:
-  - name: displayName
-    type: string
-jobs:
-- job: ${{ parameters.displayName }}
-  
-  displayName: ${{ parameters.displayName }}
+
+- job:  sonarcube
   pool:
     vmImage: 'ubuntu-latest'    
   steps:
