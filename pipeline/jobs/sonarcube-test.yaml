@@ -1,3 +1,4 @@
+jobs:
 - job:  sonarcube
   pool:
     vmImage: 'ubuntu-latest'    
