@@ -8,6 +8,4 @@ steps:
       projectName: '"HMI :: Hearing Management Interface API"'
     
   - task: SonarCloudAnalyze@1
-         - task: SonarCloudPublish@1
-           inputs:
-             pollingTimeoutSec: '300'
+         
