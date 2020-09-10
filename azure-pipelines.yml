@@ -135,11 +135,11 @@ stages:
               resourceGroup: $[dependencies.Terraform.outputs['terraformOutput.resourceGroup']]
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
-         - template: pipeline/jobs/sonarcube-test.yaml
-           parameters:
-             displayName: CI/CD of Code Quality Checks
-             subscription: ${{ environment.subscription }} 
-             group: ${{ environment.group }}
+        - template: pipeline/jobs/sonarcube-test.yaml
+          parameters:
+            displayName: CI/CD of Code Quality Checks
+            subscription: ${{ environment.subscription }} 
+            group: ${{ environment.group }}
 
     - ${{ if environment.tests_security }}:
       - ${{ each test in environment.tests_security }}:
