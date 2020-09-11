@@ -2,10 +2,10 @@ steps:
   - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
     displayName: 'Prepare analysis on SonarCloud'
     inputs:
-      SonarCloud: SonarCloud
+      SonarCloud: 'SonarCloud'
       organization: hmcts
-      projectKey: '"HMIAPI"'
-      projectName: '"HMI :: Hearing Management Interface API"'
+      projectKey: 'HMIAPI'
+      projectName: 'HMI :: Hearing Management Interface API'
     
   - task: SonarCloudAnalyze@1
          
