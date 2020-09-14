@@ -1,0 +1,20 @@
+parameters:
+  - name: displayName
+    type: string
+
+  - name: command
+    type: string
+
+
+jobs:
+- job: ${{ parameters.displayName }}
+  
+  displayName: ${{ parameters.displayName }}
+  pool:
+    vmImage: 'ubuntu-latest'
+  
+  steps:
+  - template: ../steps/run-sonarcloudanalysis.yaml
+    parameters:
+      command: ${{ parameters.command }} 
+  
