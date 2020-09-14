@@ -36,9 +36,7 @@ parameters:
         repository: hmi/apim-tests-owasp
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
-  parameters:
-    displayName: ${{ test.name }}
-    command: ${{ test.command }}
+  
         
 
     
