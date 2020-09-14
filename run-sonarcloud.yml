@@ -4,8 +4,7 @@ trigger:
 parameters:
 - name: displayname
   type: string
-- name: command
-  type: string
+
 
 jobs:
 - job:  ${{ parameters.displayname }}
@@ -24,7 +23,7 @@ jobs:
     inputs:
       gradleWrapperFile: 'gradlew'
       workingDirectory: '$(System.DefaultWorkingDirectory)'
-      tasks: clean ${{ parameters.command }}
+      tasks: '$(Parameters.tasks)'
       sonarQubeRunAnalysis: true
       sqGradlePluginVersionChoice: build
       
