@@ -37,8 +37,8 @@ parameters:
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
-    displayName: ${{ sbox.name }}
-    command: ${{ sbox.command }}
+    displayName: ${{ test.name }}
+    command: ${{ test.command }}
         
 
     
