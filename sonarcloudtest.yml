@@ -4,11 +4,7 @@ trigger:
 
 parameters:
 - name: test
-  subscription: DTS-SHAREDSERVICES-TEST
-  group: HMI-APIM-BUILD-TEST
-  tests_sonarqube:
-  - name: UnitTest
-    command: test
+  command: test
          
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
