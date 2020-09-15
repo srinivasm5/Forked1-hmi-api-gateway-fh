@@ -1,16 +1,12 @@
 ---
 trigger:
   - none
-
-parameters:
-- name: test
-  command: test
-         
+       
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
-    displayName: ${{ test.name}}
-    command: ${{ test.command }}
+    displayName: sonarqubetest
+    command: ./gradlew clean sonarqube --stacktrace -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError" -Psonar.login=8a5104e3e0960afa90a93fac3c56aae2fa4794d8
         
 
     
