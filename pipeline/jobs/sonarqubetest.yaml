@@ -2,9 +2,6 @@ parameters:
   - name: displayName
     type: string
 
-  - name: command
-    type: string
-
 
 jobs:
 - job: ${{ parameters.displayName }}
