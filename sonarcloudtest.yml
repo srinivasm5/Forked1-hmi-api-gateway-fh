@@ -3,14 +3,18 @@ trigger:
   - none
 
 parameters:
-- name: displayname
-  type: string
-       
+- name: test
+  subscription: DTS-SHAREDSERVICES-TEST
+  group: HMI-APIM-BUILD-TEST
+  tests_sonarqube:
+  - name: UnitTest
+    command: test
+         
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
-    displayName: ${{ parameters.displayname}}
-    
+    displayName: ${{ test.name}}
+    command: ${{ test.command }}
         
 
     
