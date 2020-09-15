@@ -3,8 +3,6 @@ trigger:
   - none
 
 parameters:
-- name: command
-  type: string
 - name: displayname
   type: string
        
@@ -12,7 +10,7 @@ jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
     displayName: ${{ parameters.displayname}}
-    command: ${{ parameters.command }}
+    
         
 
     
