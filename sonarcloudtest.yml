@@ -32,7 +32,7 @@ parameters:
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
-    displayName: ${{ test.name }}
+    displayName: sonarcloudtest
     command: ${{ test.command }}
         
 
