@@ -3,22 +3,16 @@ trigger:
   - none
 
 parameters:
-  - name: environments
-    type: object
-    default: 
-    - name: test
-      subscription: DTS-SHAREDSERVICES-TEST
-      group: HMI-APIM-BUILD-TEST
-      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
-      tests_gradle1:
-      - name: Sonarqube Test
-        command: test
-        
+- name: command
+  type: string
+- name: displayname
+  type: string
+       
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
-    displayName: ${{ test.name }}
-    command: ${{ test.command }}
+    displayName: ${{ parameters.displayname}}
+    command: ${{ parameters.command }}
         
 
     
