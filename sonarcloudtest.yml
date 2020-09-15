@@ -6,37 +6,19 @@ parameters:
   - name: environments
     type: object
     default: 
-    - name: sbox
-      subscription: DTS-SHAREDSERVICES-SBOX
-      group: HMI-APIM-BUILD-SBOX
-      registry: DTS-SS-PRIVATE-SBOX
-      tests_gradle:
-      - name: UnitTest
+    - name: test
+      subscription: DTS-SHAREDSERVICES-TEST
+      group: HMI-APIM-BUILD-TEST
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+      tests_gradle1:
+      - name: Sonarqube Test
         command: test
-        logLevel: info
-        serenity: true
-      - name: SmokeTest
-        command: smoke
-        logLevel: debug
-        serenity: false
-        dependsOn: UnitTest
-      - name: AcceptanceTest
-        command: acceptance
-        logLevel: debug
-        serenity: false
-        dependsOn: SmokeTest
-      - name: FunctionalTest
-        command: functional
-        logLevel: info
-        serenity: true
-        dependsOn: AcceptanceTest
-      tests_security:
-      - name: ApiZapScan
-        containerRegistry: ssprivatesbox.azurecr.io
-        repository: hmi/apim-tests-owasp
+        
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
-  
+  parameters:
+    displayName: ${{ test.name }}
+    command: ${{ test.command }}
         
 
     
