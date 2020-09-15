@@ -8,6 +8,7 @@ parameters:
 
 jobs:
 - job: ${{ parameters.displayName }}
+  displayName: ${{ parameters.displayName }}
   pool:
     vmImage: 'ubuntu-latest'
   
