@@ -7,7 +7,7 @@ parameters:
     type: string
 
 jobs:
-- job: 'Run Sonarcloud analysis'
+- job: ${{ parameters.displayName }}
   displayName: ${{ parameters.displayName }}
   pool:
     vmImage: 'Ubuntu-16.04'
