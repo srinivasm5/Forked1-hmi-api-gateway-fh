@@ -8,7 +8,7 @@ jobs:
 - job: ${{ parameters.displayName }}
   displayName: ${{ parameters.displayName }}
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'Ubuntu-16.04'
   
   steps:
   - template: ../steps/run-sonarcloudanalysis.yaml
