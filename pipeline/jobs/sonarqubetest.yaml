@@ -1,11 +1,13 @@
 parameters:
   - name: displayName
+    default: 'Sonarcloud test'
     type: string
   - name: command
+    default: './gradlew clean sonarqube --stacktrace -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError" -Psonar.login=8a5104e3e0960afa90a93fac3c56aae2fa4794d8'
     type: string
 
 jobs:
-- job: ${{ parameters.displayName }}
+- job: Run Sonarcloud analysis
   displayName: ${{ parameters.displayName }}
   pool:
     vmImage: 'Ubuntu-16.04'
@@ -13,5 +15,5 @@ jobs:
   steps:
   - template: ../steps/run-sonarcloudanalysis.yaml
     parameters:
-      command: ${{ parameters.command }} ./gradlew clean sonarqube --stacktrace -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError" -Psonar.login=8a5104e3e0960afa90a93fac3c56aae2fa4794d8
+      command: ${{ parameters.command }} 
   
