@@ -81,7 +81,7 @@ parameters:
 
 variables:
   - group: HMI-APIM-Common
-  Sonarcloud_login: $(Psonar.login)
+  
   
 
 stages:
@@ -92,7 +92,8 @@ stages:
     ${{ if environment.condition }}:
       condition: ${{ environment.condition }}
     displayName: Build and Test ${{ environment.name }} APIM
-    
+    variables: 
+      Sonarcloud_login: $(Psonar.login)
     jobs:
 
     - template: pipeline/jobs/terraform.yaml
