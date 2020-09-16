@@ -31,8 +31,7 @@ parameters:
         serenity: true
         dependsOn: AcceptanceTest
 jobs:
-- ${{ if environment.tests_gradle }}:
-      - ${{ each test in environment.tests_gradle }}:
+
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
     displayName: ${{ test.name }}
