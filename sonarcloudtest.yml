@@ -10,7 +10,7 @@ jobs:
   
   parameters:
     displayName: 'Sonarcloudtest'
-    command: $(Sonarcloud_login)'
+    command: $(Sonarcloud_login)
 
 
         
