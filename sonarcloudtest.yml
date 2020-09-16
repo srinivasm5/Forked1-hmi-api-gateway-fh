@@ -3,12 +3,11 @@ trigger:
   - none
 pr: 
   - none
-
+variables: 
+  Sonarcloud_login: $(Psonar.login)
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
-  variables: 
-    Sonarcloud_login: $(Psonar.login)
-
+  
   parameters:
     displayName: 'Sonarcloudtest'
     command: 'sonarqube --stacktrace -$(Sonarcloud_login)'
