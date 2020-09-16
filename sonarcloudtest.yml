@@ -6,9 +6,12 @@ pr:
 
 jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
+  variables: 
+    Sonarcloud_login: $(Psonar.login)
+
   parameters:
     displayName: 'Sonarcloudtest'
-    command: 'sonarqube --stacktrace -$(Psonar.login)'
+    command: 'sonarqube --stacktrace -$(Sonarcloud_login)'
 
 
         
