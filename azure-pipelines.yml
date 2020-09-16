@@ -81,7 +81,7 @@ parameters:
 
 variables:
   - group: HMI-APIM-Common
-  Sonarcloud_login: $(Psonar.login)
+  - Sonarcloud_login: $(Psonar.login)
   
 
 stages:
