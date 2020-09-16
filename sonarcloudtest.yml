@@ -3,44 +3,21 @@ trigger:
   - none
 pr: 
   - none
-parameters:
-  - name: environments
-    type: object
-    default: 
-    - name: test
-      subscription: DTS-SHAREDSERVICES-TEST
-      group: HMI-APIM-BUILD-TEST
-      tests_gradle:
-      - name: UnitTest
-        command: test
-        logLevel: info
-        serenity: true
-      - name: SmokeTest
-        command: smoke
-        logLevel: debug
-        serenity: false
-        dependsOn: UnitTest
-      - name: AcceptanceTest
-        command: acceptance
-        logLevel: debug
-        serenity: false
-        dependsOn: SmokeTest
-      - name: FunctionalTest
-        command: functional
-        logLevel: info
-        serenity: true
-        dependsOn: AcceptanceTest
-jobs:
 
+jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
-    displayName: ${{ test.name }}
-    command: ${{ test.command }}
-    
-        
+    displayName: 'Sonarcloudtest'
+    command: './gradlew clean sonarqube --stacktrace -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError" -Psonar.login=8a5104e3e0960afa90a93fac3c56aae2fa4794d8'
 
-    
-
-    
 
         
+
+    
+
+    
+
+        
+
+
+
