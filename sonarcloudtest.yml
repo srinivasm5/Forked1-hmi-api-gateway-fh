@@ -8,7 +8,7 @@ jobs:
 - template: pipeline/jobs/sonarqubetest.yaml
   parameters:
     displayName: 'Sonarcloudtest'
-    command: 'ls - la'
+    command: './gradlew clean sonarqube --stacktrace -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError" -Psonar.login=8a5104e3e0960afa90a93fac3c56aae2fa4794d8'
 
 
         
