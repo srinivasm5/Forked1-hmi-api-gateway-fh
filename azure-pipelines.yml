@@ -92,8 +92,10 @@ stages:
     ${{ if environment.condition }}:
       condition: ${{ environment.condition }}
     displayName: Build and Test ${{ environment.name }} APIM
-    variables: 
-      Sonarcloud_login: $(Psonar.login)
+    variables:
+    - group: SonarCloud
+    - name: Sonarcloud_login
+      value: $(Psonar.login) 
     jobs:
 
     - template: pipeline/jobs/terraform.yaml
