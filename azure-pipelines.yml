@@ -139,10 +139,7 @@ stages:
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
               
-    - template: pipeline/jobs/sonarqubetest.yaml
-      parameters:
-        displayName: 'Sonarcloudtest'
-        command: sonarqube --stacktrace -$(Sonarcloud_login)
+    
     - ${{ if environment.tests_security }}:
       - ${{ each test in environment.tests_security }}:
         - template: pipeline/jobs/security-test.yaml
@@ -166,3 +163,7 @@ stages:
               resourceGroup: $[dependencies.Terraform.outputs['terraformOutput.resourceGroup']]
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
+    - template: pipeline/jobs/sonarqubetest.yaml
+      parameters:
+        displayName: 'Sonarcloudtest'
+        command: sonarqube --stacktrace -$(Sonarcloud_login)
