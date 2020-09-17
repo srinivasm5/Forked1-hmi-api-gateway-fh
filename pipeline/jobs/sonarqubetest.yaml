@@ -3,7 +3,7 @@ parameters:
     default: ''
     type: string
   - name: dependsOn
-	  type: object
+    type: object
 
   - name: command
     default: ''
