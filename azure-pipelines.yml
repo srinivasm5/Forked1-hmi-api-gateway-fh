@@ -1,11 +1,11 @@
 ---
 trigger:
-  - master
+  - none
 
 parameters:
   - name: environments
     type: object
-    default: 
+    default:
     - name: sbox
       subscription: DTS-SHAREDSERVICES-SBOX
       group: HMI-APIM-BUILD-SBOX
@@ -82,6 +82,8 @@ parameters:
 variables:
   - group: HMI-APIM-Common
 
+
+
 stages:
 
 - ${{ each environment in parameters.environments }}:
@@ -90,13 +92,16 @@ stages:
     ${{ if environment.condition }}:
       condition: ${{ environment.condition }}
     displayName: Build and Test ${{ environment.name }} APIM
-    
+    variables:
+    - group: SonarCloud
+    - name: Sonarcloud_login
+      value: $(Psonar.login)
     jobs:
 
     - template: pipeline/jobs/terraform.yaml
       parameters:
         displayName: Build infrastructure with Terraform
-        subscription: ${{ environment.subscription }} 
+        subscription: ${{ environment.subscription }}
         group: ${{ environment.group }}
 
     - template: pipeline/jobs/create-storage.yaml
@@ -116,7 +121,7 @@ stages:
         - template: pipeline/jobs/gradle-test.yaml
           parameters:
             displayName: ${{ test.name }}
-            dependsOn: 
+            dependsOn:
             - Terraform
             - createStorage
             - ${{ if test.dependsOn }}:
@@ -130,11 +135,12 @@ stages:
             resourceGroup: $(resourceGroup)
             storageAccount: $(storageAccount)
             storageContainer: $(storageContainer)
-            variables: 
+            variables:
               subscriptionKey: $[dependencies.Terraform.outputs['terraformOutput.subscriptionKey']]
               resourceGroup: $[dependencies.Terraform.outputs['terraformOutput.resourceGroup']]
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
+
 
     - ${{ if environment.tests_security }}:
       - ${{ each test in environment.tests_security }}:
@@ -150,7 +156,7 @@ stages:
             containerRegistry: ${{ test.containerRegistry }}
             dockerfile: docker/images/${{ test.name }}/Dockerfile
             tags: latest
-            testUrl: https://www.example.com/openapi.json 
+            testUrl: https://www.example.com/openapi.json
             securityRules: https://raw.githubusercontent.com/hmcts/security-test-rules/master/conf/security-rules.conf
             resourceGroup: $(resourceGroup)
             storageAccount: $(storageAccount)
@@ -159,3 +165,11 @@ stages:
               resourceGroup: $[dependencies.Terraform.outputs['terraformOutput.resourceGroup']]
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
+    - template: pipeline/jobs/sonarqubetest.yaml
+      condition: contains{environment.name, sbox}
+      parameters:
+        displayName: 'Sonarcloudtest'
+        dependsOn:
+        - Terraform
+        - createStorage
+        command: sonarqube --stacktrace -$(Sonarcloud_login)
