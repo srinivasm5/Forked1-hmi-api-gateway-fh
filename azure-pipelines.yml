@@ -166,6 +166,7 @@ stages:
               storageAccount: $[dependencies.Terraform.outputs['terraformOutput.storageAccount']]
               storageContainer: $[dependencies.createStorage.outputs['createContainer.container']]
     - template: pipeline/jobs/sonarqubetest.yaml
+        condition: contains{environment.name, sbox}
       parameters:
         displayName: 'Sonarcloudtest'
         dependsOn: 
