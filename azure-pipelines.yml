@@ -169,4 +169,7 @@ stages:
       - template: pipeline/jobs/sonarqubetest.yaml
         parameters:
           displayName: 'Sonarcloudtest'
+          dependsOn:
+          - Terraform
+          - createStorage
           command: sonarqube --stacktrace -$(Sonarcloud_login)
