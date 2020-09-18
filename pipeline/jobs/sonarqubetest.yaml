@@ -2,14 +2,17 @@ parameters:
   - name: displayName
     default: ''
     type: string
-
+  - name: dependsOn
+    type: object
   - name: command
     default: ''
     type: string
 
 jobs:
 - job: ${{ parameters.displayName }}
-  displayName: ${{ parameters.displayName }}
+  dependsOn:
+  - ${{ if parameters.dependsOn }}:
+    - ${{ parameters.dependsOn }}
 
   pool:
     vmImage: 'Ubuntu-16.04'
