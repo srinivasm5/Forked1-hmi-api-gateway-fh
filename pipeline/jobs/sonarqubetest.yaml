@@ -19,4 +19,4 @@ jobs:
     parameters:
       command: ${{ parameters.command }}
       sonarAnalysis: true
-      publishJUnitResults: flase
+      publishJUnitResults: false
